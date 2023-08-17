@@ -21,8 +21,8 @@ class FormTarefa extends StatelessWidget {
                     "Informe a tarefa",
                     Icons.assignment),
                 Editor(controladorObs,
-                    "Tarefa 2",
-                    "Informe a tarefa 2",
+                    "Obs",
+                    "Informe a descrição",
                     Icons.assignment),
                 ElevatedButton(onPressed: (){
                   criarTarefa(context);

@@ -18,9 +18,20 @@ class ItemTarefa extends StatelessWidget {
   }
 }
 
-class ListaTarefa extends StatelessWidget {
+class ListaTarefa extends StatefulWidget {
+  List<Tarefa> _tarefas = [];
+
+  @override
+  State<StatefulWidget> createState() {
+    return ListaTarefaState();
+  }
+}
+
+class ListaTarefaState extends State<ListaTarefa> {
   @override
   Widget build(BuildContext context) {
+    //widget._tarefas.add(Tarefa("preparar aula", 'postar'));
+    //widget._tarefas.add(Tarefa("preparar aula 2", 'postar 2'));
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de Tarefas"),
@@ -29,19 +40,24 @@ class ListaTarefa extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final Future future =
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FormTarefa();
           }));
+          future.then((tarefa) {
+            widget._tarefas.add(tarefa);
+            setState(() {
+
+            });
+          });
         },
         child: Icon(Icons.add),
       ),
-      body: Column(
-        children: <Widget>[
-          ItemTarefa(Tarefa("Tarefa 1", "desc da tarefa 1")),
-          ItemTarefa(Tarefa("Tarefa 2", "desc da tarefa 2")),
-          ItemTarefa(Tarefa("Tarefa 3", "desc da tarefa 3")),
-        ],
-      ),
+      body: ListView.builder(
+        itemCount: widget._tarefas.length,
+        itemBuilder: (context, indice){
+          final tarefa= widget._tarefas[indice];
+          return ItemTarefa(tarefa);
+        }),
     );
   }
 }
